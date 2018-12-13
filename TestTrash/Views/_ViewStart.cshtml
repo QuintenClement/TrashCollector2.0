@@ -1,0 +1,8 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    if(User.IsInRole("Customer"))
+    {
+        Layout = "~/Views/Shared/CustomerLayout.cshtml";
+    }
+}
