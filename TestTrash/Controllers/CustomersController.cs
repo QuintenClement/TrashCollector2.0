@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using TestTrash.Models;
+
 
 namespace TestTrash.Controllers
 {
@@ -129,6 +131,26 @@ namespace TestTrash.Controllers
             }
             base.Dispose(disposing);
         }
+      
+        public ActionResult GetLatLngOfCustomer()
+        {
+            foreach (var customers in db.Customers)
+            {
+                string address = customers.Address;
+                string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0}+&key=AIzaSyBpYq3xWWk8w9uCxu3-NG_PjUArik5Z8uM", Uri.EscapeDataString(address));
+                WebRequest request = WebRequest.Create(requestUri);
+                WebResponse response = request.GetResponse();
+                XDocument xdoc = XDocument.Load(response.GetResponseStream());
+                XElement result = xdoc.Element("GeocodeResponse").Element("result");
+                XElement locationElement = result.Element("geometry").Element("location");
+                customers.Latitude = double.Parse(locationElement.Element("lat").ToString());
+                customers.Longitude = double.Parse(locationElement.Element("lng").ToString());
+                db.SaveChanges();
+                return RedirectToAction("FilteryByZip", "Employees");
 
+            }
+            return RedirectToAction("FilteryByZip", "Employees");
+
+        }
     }
 }

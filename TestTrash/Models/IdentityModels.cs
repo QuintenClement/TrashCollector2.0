@@ -35,5 +35,6 @@ namespace TestTrash.Models
         public System.Data.Entity.DbSet<TestTrash.Models.Employee> Employees { get; set; }
 
         public System.Data.Entity.DbSet<TestTrash.Models.Pickup> Pickups { get; set; }
+
     }
 }

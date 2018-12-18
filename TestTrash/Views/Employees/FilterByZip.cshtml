@@ -1,82 +1,141 @@
-﻿@model IEnumerable<TestTrash.Models.Customer>
+﻿@*@model IEnumerable<TestTrash.Models.Customer>*@
+@model TestTrash.Models.ViewModel
 
 @{
-    ViewBag.Title = "FilterByZip";
+    ViewBag.Title = "Pick Ups";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>FilterByZip</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @*@Html.ActionLink("Create New Customer", "Create", "Customers")
+        @Html.LabelFor(model => model.customer, htmlAttributes: new { @class = "control-label col-md-2"})
+        @Html.DropDownListFor(model => model.customer[0].First().DayAvailable)*@
 </p>
+@*<div class="form-group">
+    @foreach (var item in Model)
+    {
+
+        @Html.LabelFor(model => model.customer.DayAvailable, htmlAttributes: new { @class = "control-label col-md-2" })
+
+    }*@
+
+@*</div>*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            DROPDOWN
+            <div class="col-md-10">
+
+                @Html.DropDownListFor(m => m.DaySelection, new SelectList(ViewBag.Days, "Value", "Text"))
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Filter" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
 <table class="table">
+    
     <tr>
+
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @*@Html.DisplayNameFor(model => model.Name)*@
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            @*@Html.DisplayNameFor(model => model.Address)*@
+            Address
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ZipCode)
+            @*@Html.DisplayNameFor(model => model.ZipCode)*@
+            Zip-Code
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DayAvailable)
+            @*@Html.DisplayNameFor(model => model.DayAvailableValue)*@
+            Day Available
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AmountOwed)
+            @*@Html.DisplayNameFor(model => model.AmountOwed)*@
+            Amount Owed
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.ApplicationUserId)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.ExtraPickUp)
+            @*@Html.DisplayNameFor(model => model.ExtraPickUp)*@
+            Extra Pickup
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartSuspend)
+            @*@Html.DisplayNameFor(model => model.StartSuspend)*@
+            Start Suspension
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndSuspend)
+            @*@Html.DisplayNameFor(model => model.EndSuspend)*@
+            End Suspension
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Status)*@
+            Status
         </th>
         <th></th>
     </tr>
+    
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DayAvailable)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountOwed)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.ApplicationUserId)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.ExtraPickUp)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartSuspend)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndSuspend)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.customers)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayAvailable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountOwed)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUserId)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.ExtraPickUp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartSuspend)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndSuspend)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Confirm Pickup", "ConfirmPickup", new { id = item.Id }, "Employees") |
+                @Html.ActionLink("Details", "Details", "Customers", new { id = item.Id }, null) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -120,3 +120,12 @@ D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.dll
 D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.pdb
 D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.init.resources
 D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.csproj.GenerateResource.cache
+D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.addedstatusvariabletocustomersmodel.resources
+D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.addeddropdownlistfordaysofweektocustomersmodel.resources
+D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.changeddayavailabletodayOfWeektype.resources
+D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.changeddayavailabletostringtype.resources
+D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.addedmapmodel.resources
+D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.deletedmapmodel.resources
+D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.deletedDayAvailableValuefromcustomersmodel.resources
+D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.addedlongitudeandlatitudetocustomersmodel.resources
+D:\devCodeCamp\Test Trash\TestTrash\TestTrash\obj\Debug\TestTrash.Migrations.notsurewhatchangedinthecustomermodelbutsavingnow.resources

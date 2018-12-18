@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Xml.Linq;
+using System.Net;
 
 namespace TestTrash.Models
 {
@@ -16,6 +19,9 @@ namespace TestTrash.Models
         public int ZipCode { get; set; }
         public string DayAvailable { get; set; }
         public double AmountOwed { get; set; }
+        public string Status { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         
 
         [ForeignKey("ApplicationUser")]

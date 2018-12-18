@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -130,15 +131,71 @@ namespace TestTrash.Controllers
             }
             base.Dispose(disposing);
         }
-        public ActionResult FilterByZip()
+       public ActionResult FilterByZip()
         {
-            var thing = User.Identity.GetUserId();
-            Employee employee = db.Employees.Where(e => e.ApplicationUserId == thing).Single();
-            var customer = db.Customers.Where(c => c.ZipCode == employee.ZipCode);
+            string today = DateTime.Today.DayOfWeek.ToString();
+            var userId = User.Identity.GetUserId();
+            Employee employee = db.Employees.Where(e => e.ApplicationUserId == userId).Single();
+            var customers = db.Customers.Where(c => c.ZipCode == employee.ZipCode && c.DayAvailable.Equals(today)).ToList();
             
-            return View(customer);
+
+            ViewBag.Days = new List<SelectListItem>()
+            {
+                new SelectListItem {Text="Select",Value=null,Selected=true },
+                new SelectListItem {Text="Monday",Value="Monday" },
+                new SelectListItem {Text="Tuesday",Value="Tuesday" },
+                new SelectListItem {Text="Wednesday",Value="Wednesday" },
+                new SelectListItem {Text="Thursday",Value="Thursday" },
+                new SelectListItem {Text="Friday",Value="Friday" },
+                new SelectListItem {Text="Saturday",Value="Saturday" },
+                new SelectListItem {Text="Sunday",Value="Sunday" },
+            };
+
+
+            ViewModel vm = new ViewModel();
+            vm.customers = customers;
+
+            return View(vm);
         }
-     
-     
+
+        [HttpPost]
+        public ActionResult FilterByZip(ViewModel viewModel)
+        {
+            var userId = User.Identity.GetUserId();
+            Employee employee = db.Employees.Where(e => e.ApplicationUserId == userId).Single();
+            var customers = db.Customers.Where(c => c.ZipCode == employee.ZipCode && c.DayAvailable == viewModel.DaySelection).ToList();
+
+
+            ViewBag.Days = new List<SelectListItem>()
+            {
+                new SelectListItem {Text="Select",Value=null,Selected=true },
+                new SelectListItem {Text="Monday",Value="Monday" },
+                new SelectListItem {Text="Tuesday",Value="Tuesday" },
+                new SelectListItem {Text="Wednesday",Value="Wednesday" },
+                new SelectListItem {Text="Thursday",Value="Thursday" },
+                new SelectListItem {Text="Friday",Value="Friday" },
+                new SelectListItem {Text="Saturday",Value="Saturday" },
+                new SelectListItem {Text="Sunday",Value="Sunday" },
+            };
+            viewModel.customers = customers;
+            return View(viewModel);
+        }
+
+        public ActionResult ConfirmPickup(int? id)
+        {
+            
+            Customer customer = db.Customers.Find(id);
+            customer.Status = "Picked up";
+            ChargeCustomer(id);
+            db.SaveChanges();
+            return RedirectToAction("FilterByZip");
+        }
+        public void ChargeCustomer(int? id)
+        {
+            Customer customer = db.Customers.Find(id);
+            customer.AmountOwed += 2.50;
+        }
+       
+       
     }
 }
